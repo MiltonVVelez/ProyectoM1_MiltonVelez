@@ -1,0 +1,49 @@
+
+:root {
+  /* Colores del tema light */
+  --light-background-color: hsl(0 0% 80%);
+  --light-primary-color: hsl(0 0% 0%);
+  --light-secondary-color: hsl(240 62% 35%);
+  /* Colores del tema dark */
+  --dark-background-color: hsl(0 0% 80%);
+  --dark-primary-color: hsl(0 0% 0%);
+  --dark-secondary-color: hsl(240 70% 60%);
+  /*Estilos de fuente*/
+  --font-primario:'Valley Sans', cursive;
+  --font-weight-regular: 400;
+  --font-weight-subtitulos: 550;
+  --font-weight-titulo: 800;
+  --font-size-titulo: 2.5rem;
+  --font-size-subtitulo: 1.2rem;
+  --font-size-texto: 1rem;
+  
+
+}
+
+/* Reset General para que el box model sea consistente */
+
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+html {
+  font-size: 100%;
+}
+
+body {
+  font-family: var(--font-primario);
+  background-color: var(--light-background-color);
+  color: var(--light-primary-color);
+  min-height: 100vh;
+}
+
+.title {
+  font-weight: var(--font-weight-titulo);
+  font-size: var(--font-size-titulo);
+}
+
+
+
+
