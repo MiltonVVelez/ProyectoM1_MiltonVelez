@@ -10,13 +10,46 @@
 
     <!-- Enlace de nuestra fuente -->
     <link href="https://fonts.googleapis.com/css2?family=Valley+Sans:wght@100..900&display=swap" rel="stylesheet">
+
+
+
     
     <title>Colors Palette Generator</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header>
+    <header class="seccion-header">
       <h1 class="title">Generador de colores</h1>
+      <h2 class="subtitle">Genera tus propias paletas de color</h2>
+
+
+      <section class="botones-de-control">
+        <input class="input-seleccionar-numero" type ="number" id="numero-de-colores" min="3" max="10" value="5" step="1">
+        <button id="boton-generar" class="boton generar">Generar</button>
+        <button id="boton-guardar" class="boton guardar">Guardar</button>
+      </section>
     </header>
+
+
+    <main>
+      <section class="container-paletas-de-color" id="container-paletas">
+        <article class="paleta-de-color">
+        <p class="hex-color-id">#FF0000</p>
+        <svg xmlns="http://w3.org" fill="currentColor" class="bi bi-unlock-fill icono-candado" viewBox="0 0 16 16">
+        <path d="M11 1a2 2 0 0 0-2 2v4a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h5V3a3 3 0 0 1 6 0v4a.5.5 0 0 1-1 0V3a2 2 0 0 0-2-2"/>
+        </svg>
+        </article>
+      </section>
+
+
+
+
+
+    </main>
+
+
+
+
+
 </body>
 </html>
