@@ -3,24 +3,76 @@
   /* Colores del tema light */
   --light-background-color: hsl(0 0% 80%);
   --light-primary-color: hsl(0 0% 0%);
-  --light-secondary-color: hsl(240 62% 35%);
+  --light-bottons-color: hsl(0 0% 100%);
+  --light-secondary-color: hsl(240 62% 45%);
   /* Colores del tema dark */
   --dark-background-color: hsl(0 0% 80%);
   --dark-primary-color: hsl(0 0% 0%);
   --dark-secondary-color: hsl(240 70% 60%);
+  /* Colores en paletas */
+  --icon-color: hsl(0 0% 0%);
+  --hex-icon-background: hsla(270 0% 68% / 0.2);
+
+
   /*Estilos de fuente*/
   --font-primario:'Valley Sans', cursive;
   --font-weight-regular: 400;
-  --font-weight-subtitulos: 550;
+  --font-weight-subtitulos: 100;
   --font-weight-titulo: 800;
   --font-size-titulo: 2.5rem;
   --font-size-subtitulo: 1.2rem;
   --font-size-texto: 1rem;
-  
+  /* --- SPACIADOS --- */
+  --space-0: 0rem;
+  --space-05: 0.125rem; /* 2px */
+  --space-1: 0.25rem;   /* 4px - Mínimo absoluto */
+  --space-2: 0.5rem;    /* 8px */
+  --space-3: 0.75rem;   /* 12px */
+  --space-4: 1rem;      /* 16px */
+  --space-5: 1.25rem;   /* 20px */
+  --space-6: 1.5rem;    /* 24px */
+  --space-8: 2rem;      /* 32px */
 
+  /* --- COMPONENT TOKENS (PADDINGS MÍNIMOS) --- */
+  
+  /* Botones e Inputs */
+  --padding-button-y: var(--space-2); 
+  --padding-button-x: var(--space-4);
+  --padding-button-y-copy-hex: var(--space-1);
+  --padding-button-x-copy-hex: var(--space-2);
+  --padding-button-generar-y: var(--space-3);
+  --padding-button-generar-x: var(--space-5);
+  
+  /* 16px mínimo horizontal */
+
+  /* Tarjetas y Contenedores */
+  --padding-card-mobile: var(--space-4); /* 16px estándar móvil */
+  --padding-card-desktop: var(--space-6); /* 24px estándar escritorio */
+  
+    /* --- DESIGN TOKENS: RADIUS --- */
+  --radius-none: 0rem;
+  --radius-xs: 0.125rem; /* 2px */
+  --radius-sm: 0.25rem;  /* 4px */
+  --radius-md: 0.5rem;   /* 8px */
+  --radius-lg: 0.75rem;  /* 12px */
+  --radius-xl: 1rem;    /* 16px */
+  --radius-2xl: 1.5rem;  /* 24px */
+  --radius-full: 9999rem;
+
+  /* --- COMPONENT TOKENS (SEMÁNTICOS) --- */
+  --component-radius-checkbox: var(--radius-xs);
+  --component-radius-button: var(--radius-sm);
+  --component-radius-input: var(--radius-sm);
+  --component-radius-dropdown: var(--radius-md);
+  --component-radius-card: var(--radius-lg);
+  --component-radius-avatar: var(--radius-full);
+
+    /* --- DESIGN TOKENS: WIDTH Y HEIGHT DE LAS PALETAS DE COLORES --- */
+  --paleta-width: 320px;
+  --paleta-height: 100px;
 }
 
-/* Reset General para que el box model sea consistente */
+
 
 
 *, *::before, *::after {
@@ -36,13 +88,100 @@ body {
   font-family: var(--font-primario);
   background-color: var(--light-background-color);
   color: var(--light-primary-color);
-  min-height: 100vh;
+}
+
+
+
+/* ==========================================================================
+   01. HEADER ESTILOS
+   ========================================================================== */
+
+
+.seccion-header{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--padding-card-mobile);
+  margin-top: var(--padding-card-mobile);
+
 }
 
 .title {
   font-weight: var(--font-weight-titulo);
   font-size: var(--font-size-titulo);
+  text-align: center;
 }
+
+.subtitle {
+  text-align: center;
+  font-weight: var(--font-weight-subtitulos);
+  font-size: var(--font-size-subtitulo);
+}
+
+/* Estilos de botones de control */
+
+.boton{
+  background-color: var(--light-bottons-color);
+  padding: var(--padding-button-y) var(--padding-button-x) ;
+  border-radius: var(--component-radius-button);
+}
+
+.boton.generar {
+  background-color: hsl(120 97.4% 44.4%);
+  padding: var(--padding-button-generar-y) var(--padding-button-generar-x);
+  font-weight: 700;
+}
+
+.input-seleccionar-numero {
+  border-radius: var(--component-radius-input);
+  padding: var(--padding-button-y) var(--padding-button-x);
+}
+
+
+/* ==========================================================================
+   02. CONTAINER PRINCIPAL ESTILOS
+   ========================================================================== */
+
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.container-paletas-de-color {
+  margin-top: var(--padding-card-mobile);
+}
+
+.paleta-de-color {
+  height: var(--paleta-height);
+  width: var(--paleta-width);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.hex-color-id {
+  background-color: var(--hex-icon-background);
+  padding: var(--padding-button-y-copy-hex) var(--padding-button-x-copy-hex);
+  border-radius: var(--component-radius-button);
+  cursor: pointer;
+}
+
+.icono-candado {
+  width: 30px;          /* En SVG usamos width y height */
+  height: 30px;
+  color: var(--icon-color);
+  background-color: var(--hex-icon-background);   
+  padding: var(--padding-button-y-copy-hex) var(--padding-button-x-copy-hex);
+  cursor: pointer;
+}
+
+
+
+
+
 
 
 
