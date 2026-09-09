@@ -45,7 +45,10 @@ function configPaleta() {
     configuracionPaleta = configuracionPaleta.map((elemento) => {
       if (elemento.estaBloqueado) return elemento;
       return {... generadorHSLrandom(), estaBloqueado:false};
-    });
 
+    });
   }
+
+  checkLockState();
+  renderPalette();
 }
