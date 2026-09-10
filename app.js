@@ -93,6 +93,15 @@ function renderizarPaleta() {
   });
 }
 
+// Esta funcion alterna entre los dos estados (true o false) del boton de bloqueo de colores
+function toggleLock(index) {
+  configuracionPaleta[index].isLocked = !configuracionPaleta[index].isLocked;
+  checkLockState();
+  renderPalette();
+}
+
+
+
 
 
 
