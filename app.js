@@ -76,9 +76,9 @@ function renderizarPaleta() {
     //Boton de bloqueo
   const lockBtn = document.createElement("button");
   lockBtn.classList.add("icono-candado");
-  if (slot.isLocked) lockBtn.classList.add("locked");
-  lockBtn.setAttribute("aria-label", slot.isLocked ? "Desbloquear" : "Bloquear");
-  lockBtn.textContent = slot.isLocked ? "🔒" : "🔓";
+  if (slot.estaBloqueado) lockBtn.classList.add("locked");
+  lockBtn.setAttribute("aria-label", slot.estaBloqueado ? "Desbloquear" : "Bloquear");
+  lockBtn.textContent = slot.estaBloqueado ? "🔒" : "🔓";
 
   //Aqui evitamos que cuando pulsemos el boton, no copie el hex al clipboard.
 
@@ -95,7 +95,7 @@ function renderizarPaleta() {
 
 // Esta funcion alterna entre los dos estados (true o false) del boton de bloqueo de colores
 function toggleLock(index) {
-  configuracionPaleta[index].isLocked = !configuracionPaleta[index].isLocked;
+  configuracionPaleta[index].estaBloqueado = !configuracionPaleta[index].estaBloqueado;
   checkLockState();
   renderPalette();
 }
