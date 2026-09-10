@@ -170,8 +170,8 @@ main {
 }
 
 .icono-candado {
-  width: 30px;          /* En SVG usamos width y height */
-  height: 30px;
+  border-radius: var(--component-radius-button);
+  border: none;
   color: var(--icon-color);
   background-color: var(--hex-icon-background);   
   padding: var(--padding-button-y-copy-hex) var(--padding-button-x-copy-hex);
