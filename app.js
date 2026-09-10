@@ -1,5 +1,7 @@
 const inputSize = document.getElementById("numero-de-colores");
 const containerPaletas = document.getElementById("container-paletas");
+const toast = document.getElementById("toast");
+const botonGenerar = document.getElementById("boton-generar");
 let configuracionPaleta = [];
 
 
@@ -63,7 +65,7 @@ function renderizarPaleta() {
     // A la hora de renderizar nuestra paleta, tambien crearemos un Event listener que esperara a que la tarjeta sea clickeada para copiar el hex 
 
 
-    paleta.addEvenetListener("click", () => {
+    paleta.addEventListener("click", () => {
     copyToClipboard(slot.hex);
     });
 
@@ -97,12 +99,33 @@ function renderizarPaleta() {
 function toggleLock(index) {
   configuracionPaleta[index].estaBloqueado = !configuracionPaleta[index].estaBloqueado;
   checkLockState();
-  renderPalette();
+  renderizarPaleta();
 }
 
 
+// Funcion para desactivar el inputSize, si hay algun color bloqueado
 
+function checkLockState() {
+  const hayBloqueados = configuracionPaleta.some((slot) => slot.isLocked);
+  inputSize.disabled = hayBloqueados;
+}
 
+// Las siguientes funciones trabajan para dar el feedback cuando se copia la info de HEX UN TOAST
 
+function mostrarToast(message) {
+  toast.textContent = message;
+  toast.classList.add("mostrar");
+  setTimeout(() => {
+    toast.classList.remove("mostrar");
+  }, 2000);
+}
+
+function copyToClipboard(text) {
+  navigator.clipboard.writeText(text).then(() => {
+    mostrarToast(`Copiado: ${text}`);
+  }).catch(() => {
+    mostrarToast("Error al copiar");
+  });
+}
 
 
