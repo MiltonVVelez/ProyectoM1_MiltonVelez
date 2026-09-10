@@ -1,5 +1,5 @@
 const inputSize = document.getElementById("numero-de-colores");
-
+const containerPaletas = document.getElementById("container-paletas");
 let configuracionPaleta = [];
 
 
@@ -11,7 +11,7 @@ function generadorHSLrandom() {
     const l = Math.floor(Math.random() * (90 + 1 - 1) + 10); // Y en esta variable entre 90 y 10 de luminosidad
 
     const hex = hslToHex(h, s, l);
-    return {h,s,l};
+    return {h,s,l,hex};
 }
 
 // Convierte HSL a HEX (estándar matemático CSS)
@@ -48,7 +48,52 @@ function configPaleta() {
 
     });
   }
-
+  renderizarPaleta();
   checkLockState();
-  renderPalette();
+
 }
+
+function renderizarPaleta() {
+  containerPaletas.innerHTML = "";
+  configuracionPaleta.forEach((slot, index) => {
+    const paleta = document.createElement("article");
+    paleta.classList.add("paleta-de-color");
+    paleta.style.backgroundColor = slot.hex;
+
+    // A la hora de renderizar nuestra paleta, tambien crearemos un Event listener que esperara a que la tarjeta sea clickeada para copiar el hex 
+
+
+    paleta.addEvenetListener("click", () => {
+    copyToClipboard(slot.hex);
+    });
+
+    //Info del Hex
+
+    const info = document.createElement("p");
+    info.classList.add("hex-color-id");
+    info.textContent = slot.hex;
+
+    //Boton de bloqueo
+  const lockBtn = document.createElement("button");
+  lockBtn.classList.add("icono-candado");
+  if (slot.isLocked) lockBtn.classList.add("locked");
+  lockBtn.setAttribute("aria-label", slot.isLocked ? "Desbloquear" : "Bloquear");
+  lockBtn.textContent = slot.isLocked ? "🔒" : "🔓";
+
+  //Aqui evitamos que cuando pulsemos el boton, no copie el hex al clipboard.
+
+  lockBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      toggleLock(index);
+    });
+
+    paleta.appendChild(info);
+    paleta.appendChild(lockBtn);
+    containerPaletas.appendChild(paleta);
+  });
+}
+
+
+
+
+
