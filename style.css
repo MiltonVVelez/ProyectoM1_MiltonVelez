@@ -195,7 +195,7 @@ main {
   transition: transform 0.25s ease, opacity 0.25s ease;
 }
 
-.toast.show {
+.toast.mostrar {
   opacity: 1;
   transform: translateX(-50%) translateY(0);
 }
