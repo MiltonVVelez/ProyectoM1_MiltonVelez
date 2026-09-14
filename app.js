@@ -2,6 +2,8 @@ const inputSize = document.getElementById("numero-de-colores");
 const containerPaletas = document.getElementById("container-paletas");
 const toast = document.getElementById("toast");
 const botonGenerar = document.getElementById("boton-generar");
+const botonGuardar = document.getElementById("boton-guardar");
+const containerGuardadas = document.getElementById("paletas-guardadas");
 let configuracionPaleta = [];
 
 
@@ -106,7 +108,7 @@ function toggleLock(index) {
 // Funcion para desactivar el inputSize, si hay algun color bloqueado
 
 function checkLockState() {
-  const hayBloqueados = configuracionPaleta.some((slot) => slot.isLocked);
+  const hayBloqueados = configuracionPaleta.some((slot) => slot.estaBloqueado);
   inputSize.disabled = hayBloqueados;
 }
 
@@ -128,4 +130,50 @@ function copyToClipboard(text) {
   });
 }
 
+// ==========================================
+// 5. LOCAL STORAGE (Guardado de propuestas)
+// ==========================================
 
+function guardarPaleta() {
+  const paletaActual = configuracionPaleta.map((slot) => slot.hex);
+  const guardado = JSON.parse(localStorage.getItem("colorfly_palettes")) || [];
+  
+  guardado.unshift(paletaActual); // Agregamos la última al inicio
+  localStorage.setItem("colorfly_palettes", JSON.stringify(guardado));
+
+  mostrarToast("¡Paleta guardada!");
+  cargarPaletasGuardadas();
+}
+
+function cargarPaletasGuardadas() {
+  const guardado = JSON.parse(localStorage.getItem("colorfly_palettes")) || [];
+  containerGuardadas.innerHTML = "";
+
+  guardado.forEach((palette) => {
+    const fila = document.createElement("div");
+    fila.classList.add("fila-guardada");
+
+    palette.forEach((hex) => {
+      const paletaGuardada = document.createElement("div");
+      paletaGuardada.classList.add("paleta-guardada");
+      paletaGuardada.style.backgroundColor = hex;
+      fila.appendChild(paletaGuardada);
+    });
+
+    containerGuardadas.appendChild(fila);
+  });
+}
+
+botonGenerar.addEventListener("click", configPaleta);
+
+inputSize.addEventListener("change", () => {
+  // Reset del estado para adaptarse al nuevo tamaño
+  configuracionPaleta = [];
+  configPaleta();
+});
+
+botonGuardar.addEventListener("click", guardarPaleta);
+
+// Arranque inicial
+configPaleta();
+cargarPaletasGuardadas();
