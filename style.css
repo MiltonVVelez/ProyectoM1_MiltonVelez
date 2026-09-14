@@ -118,6 +118,7 @@ body.dark-mode {
   font-weight: var(--font-weight-titulo);
   font-size: var(--font-size-titulo);
   text-align: center;
+  text-shadow: 1px 3px  5px var(--dark-secondary-color);
 }
 
 .subtitle {
