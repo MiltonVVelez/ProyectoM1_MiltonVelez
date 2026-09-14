@@ -6,6 +6,21 @@ const botonGuardar = document.getElementById("boton-guardar");
 const containerGuardadas = document.getElementById("paletas-guardadas");
 let configuracionPaleta = [];
 
+// ==========================================
+// MODO OSCURO / CLARO
+// ==========================================
+const botonTema = document.getElementById("boton-tema");
+
+botonTema.addEventListener("click", () => {
+  document.body.classList.toggle("dark-mode");
+  const esModoOscuro = document.body.classList.contains("dark-mode");
+  if (esModoOscuro) {
+    botonTema.textContent = "☀️ Modo Claro";
+  } else {
+    botonTema.textContent = "🌙 Modo Oscuro";
+  }
+});
+
 
 // Esta funcion lo que hara es generar un color HSL aleatorio
 
@@ -59,40 +74,54 @@ function configPaleta() {
 
 function renderizarPaleta() {
   containerPaletas.innerHTML = "";
+  
   configuracionPaleta.forEach((slot, index) => {
     const paleta = document.createElement("article");
     paleta.classList.add("paleta-de-color");
     paleta.style.backgroundColor = slot.hex;
 
-    // A la hora de renderizar nuestra paleta, tambien crearemos un Event listener que esperara a que la tarjeta sea clickeada para copiar el hex 
-
-
-    paleta.addEventListener("click", () => {
-    copyToClipboard(slot.hex);
+    // --- 1. ELEMENTO PARA EL HEX ---
+    const infoHex = document.createElement("p");
+    infoHex.classList.add("hex-color-id");
+    infoHex.textContent = slot.hex;
+    
+    // Ahora solo este texto copia el HEX
+    infoHex.addEventListener("click", (e) => {
+      e.stopPropagation(); // Evita que el clic se propague
+      copyToClipboard(slot.hex);
     });
 
-    //Info del Hex
+    // --- 2. ELEMENTO PARA EL HSL ---
+    const infoHsl = document.createElement("p");
+    infoHsl.classList.add("hex-color-id"); // Reutilizamos tu clase CSS
+    
+    // Construimos el string con Template Literals (las comillas invertidas)
+    const stringHsl = `hsl(${slot.h}, ${slot.s}%, ${slot.l}%)`;
+    infoHsl.textContent = stringHsl;
 
-    const info = document.createElement("p");
-    info.classList.add("hex-color-id");
-    info.textContent = slot.hex;
+    // Solo este texto copia el HSL
+    infoHsl.addEventListener("click", (e) => {
+      e.stopPropagation();
+      copyToClipboard(stringHsl);
+    });
 
-    //Boton de bloqueo
-  const lockBtn = document.createElement("button");
-  lockBtn.classList.add("icono-candado");
-  if (slot.estaBloqueado) lockBtn.classList.add("locked");
-  lockBtn.setAttribute("aria-label", slot.estaBloqueado ? "Desbloquear" : "Bloquear");
-  lockBtn.textContent = slot.estaBloqueado ? "🔒" : "🔓";
+    // --- 3. BOTÓN DE BLOQUEO (Sin cambios) ---
+    const lockBtn = document.createElement("button");
+    lockBtn.classList.add("icono-candado");
+    if (slot.estaBloqueado) lockBtn.classList.add("locked");
+    lockBtn.setAttribute("aria-label", slot.estaBloqueado ? "Desbloquear" : "Bloquear");
+    lockBtn.textContent = slot.estaBloqueado ? "🔒" : "🔓";
 
-  //Aqui evitamos que cuando pulsemos el boton, no copie el hex al clipboard.
-
-  lockBtn.addEventListener("click", (e) => {
+    lockBtn.addEventListener("click", (e) => {
       e.stopPropagation();
       toggleLock(index);
     });
 
-    paleta.appendChild(info);
+    // --- 4. AGREGAR TODO AL DOM ---
+    paleta.appendChild(infoHex);
+    paleta.appendChild(infoHsl); // Agregamos nuestro nuevo elemento
     paleta.appendChild(lockBtn);
+    
     containerPaletas.appendChild(paleta);
   });
 }
