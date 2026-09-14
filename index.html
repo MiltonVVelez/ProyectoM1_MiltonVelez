@@ -19,18 +19,24 @@
     <script src="app.js" defer></script>
 </head>
 <body>
-    <header class="seccion-header">
+  <header class="seccion-header">
       <button id="boton-tema" class="boton">🌙 Modo Oscuro</button>
       <h1 class="title">Generador de colores</h1>
       <h2 class="subtitle">Genera tus propias paletas de color</h2>
 
 
-      <section class="botones-de-control">
-        <input class="input-seleccionar-numero" type ="number" id="numero-de-colores" min="3" max="10" value="5" step="1">
+    <section class="botones-de-control">
+      <select class="input-seleccionar-numero" id="numero-de-colores">
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="6">6</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+      </select>
         <button id="boton-generar" class="boton generar">Generar</button>
         <button id="boton-guardar" class="boton guardar">Guardar</button>
-      </section>
-    </header>
+    </section>
+  </header>
 
 
     <main>
