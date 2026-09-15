@@ -216,6 +216,7 @@ main {
 
 .container-paletas-de-color {
   margin-top: var(--padding-card-mobile);
+  color: white;
 }
 
 .paleta-de-color {
