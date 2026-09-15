@@ -85,6 +85,13 @@ html {
   font-size: 100%;
 }
 
+button, 
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
 body {
   font-family: var(--font-primario);
   background: var(--light-background-color);

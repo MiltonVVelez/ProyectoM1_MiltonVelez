@@ -206,3 +206,5 @@ botonGuardar.addEventListener("click", guardarPaleta);
 // Arranque inicial
 configPaleta();
 cargarPaletasGuardadas();
+
+console.log("actualizado");
