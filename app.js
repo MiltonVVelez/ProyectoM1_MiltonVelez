@@ -4,6 +4,7 @@ const toast = document.getElementById("toast");
 const botonGenerar = document.getElementById("boton-generar");
 const botonGuardar = document.getElementById("boton-guardar");
 const containerGuardadas = document.getElementById("paletas-guardadas");
+const formatoColor = document.getElementById("formato-color");
 let configuracionPaleta = [];
 
 // ==========================================
@@ -75,37 +76,36 @@ function configPaleta() {
 function renderizarPaleta() {
   containerPaletas.innerHTML = "";
   
+  const formatoSeleccionado = formatoColor.value;
+  
   configuracionPaleta.forEach((slot, index) => {
     const paleta = document.createElement("article");
     paleta.classList.add("paleta-de-color");
     paleta.style.backgroundColor = slot.hex;
 
-    // --- 1. ELEMENTO PARA EL HEX ---
     const infoHex = document.createElement("p");
     infoHex.classList.add("hex-color-id");
     infoHex.textContent = slot.hex;
-    
-    // Ahora solo este texto copia el HEX
     infoHex.addEventListener("click", (e) => {
-      e.stopPropagation(); // Evita que el clic se propague
+      e.stopPropagation();
       copyToClipboard(slot.hex);
     });
 
-    // --- 2. ELEMENTO PARA EL HSL ---
     const infoHsl = document.createElement("p");
-    infoHsl.classList.add("hex-color-id"); // Reutilizamos tu clase CSS
-    
-    // Construimos el string con Template Literals (las comillas invertidas)
+    infoHsl.classList.add("hex-color-id");
     const stringHsl = `hsl(${slot.h}, ${slot.s}%, ${slot.l}%)`;
     infoHsl.textContent = stringHsl;
-
-    // Solo este texto copia el HSL
     infoHsl.addEventListener("click", (e) => {
       e.stopPropagation();
       copyToClipboard(stringHsl);
     });
 
-    // --- 3. BOTÓN DE BLOQUEO (Sin cambios) ---
+    if (formatoSeleccionado === "HEX") {
+      infoHsl.style.display = "none";
+    } else {
+      infoHex.style.display = "none";
+    }
+
     const lockBtn = document.createElement("button");
     lockBtn.classList.add("icono-candado");
     if (slot.estaBloqueado) lockBtn.classList.add("locked");
@@ -119,7 +119,7 @@ function renderizarPaleta() {
 
     // --- 4. AGREGAR TODO AL DOM ---
     paleta.appendChild(infoHex);
-    paleta.appendChild(infoHsl); // Agregamos nuestro nuevo elemento
+    paleta.appendChild(infoHsl);
     paleta.appendChild(lockBtn);
     
     containerPaletas.appendChild(paleta);
@@ -194,6 +194,11 @@ function cargarPaletasGuardadas() {
 }
 
 botonGenerar.addEventListener("click", configPaleta);
+
+
+formatoColor.addEventListener("change", () => {
+  renderizarPaleta();
+});
 
 inputSize.addEventListener("change", () => {
   // Reset del estado para adaptarse al nuevo tamaño
