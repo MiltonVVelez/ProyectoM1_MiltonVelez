@@ -182,7 +182,7 @@ body.dark-mode {
 .input-seleccionar-numero {
 
   border-radius: var(--component-radius-input);
-  padding: var(--padding-button-y) var(--padding-button-x);
+  padding: var(--padding-button-y) 2.2rem;
 
 
   background-color: #f9fafb; 
